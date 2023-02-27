@@ -38,8 +38,6 @@ class PopupController {
   void dispose() {
     assert(!_disposed, _kAssertionMessage);
 
-    _overlayState?._close();
-
     _reset();
     _scrollOffsetNotifier.dispose();
     _disposed = true;
@@ -50,6 +48,7 @@ class PopupController {
 
     cancelCloseTimer();
     _status = _PopupStatus.closed;
+    _overlayState?._close();
     _overlayState = null;
 
     // WARNING: Scroll offset must not be reset.

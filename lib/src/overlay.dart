@@ -93,8 +93,11 @@ class _PopupOverlayState extends State<_PopupOverlay>
     }
 
     _animationController.stop();
-    widget.controller.cancelCloseTimer();
-    widget.removeOverlay();
+
+    if (widget.controller._status != _PopupStatus.closed) {
+      widget.controller.cancelCloseTimer();
+      widget.removeOverlay();
+    }
   }
 
   void _closeWithAnimation() {
