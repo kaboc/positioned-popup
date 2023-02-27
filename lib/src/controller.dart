@@ -8,14 +8,15 @@ enum _PopupStatus { open, closing, closed }
 
 class PopupController {
   PopupController({double scrollX = 0.0, double scrollY = 0.0})
-      : _isInternal = false {
-    _scrollOffsetNotifier.value = Offset(scrollX, scrollY);
-  }
+      : _isInternal = false,
+        _scrollOffsetNotifier = ValueNotifier(Offset(scrollX, scrollY));
 
-  PopupController._internal() : _isInternal = true;
+  PopupController._internal()
+      : _isInternal = true,
+        _scrollOffsetNotifier = ValueNotifier(Offset.zero);
 
   final bool _isInternal;
-  final _scrollOffsetNotifier = ValueNotifier(Offset.zero);
+  final ValueNotifier<Offset> _scrollOffsetNotifier;
 
   _PopupStatus _status = _PopupStatus.closed;
   bool _disposed = false;
